@@ -1,67 +1,55 @@
-﻿using Unity.Entities;
+﻿
+using Unity.Entities;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Jobs;
+using UnityEngine;
+
 
 [UpdateBefore(typeof(SwarmRotationSystem))]
-public class SwarmDirectionSystem : ComponentSystem
+public class SwarmDirectionSystem : JobComponentSystem
 {
     [ReadOnly] public float3 goalPos;
-    [ReadOnly] public float groupDistance;
-    // 
-    //     [BurstCompile]
-    //     struct SwarmDirectionJob : IJobForEach<Translation, SwarmRotationData>
-    //     {
-    //         public float3 goalPos;
-    //         public void Execute([ReadOnly] ref Translation translation, ref SwarmRotationData rotationData)
-    //         {
-    //             float3 direction = goalPos - translation.Value;
-    //             direction = math.length(direction) < 2.0f ? math.normalize(translation.Value - goalPos) : math.normalize(direction);
-    //            
-    // 
-    //             rotationData.direction = direction;
-    //         }
-    //     }
+    [ReadOnly] public float radius;
+    [ReadOnly] public float totalAmount;
 
-    //     protected override JobHandle OnUpdate(JobHandle inputDeps)
-    //     {
-    //         SwarmDirectionJob job = new SwarmDirectionJob
-    //         {
-    //             goalPos = goalPos
-    //         };
-    // 
-    //         return job.Schedule(this, inputDeps);
-    //     }
-    protected override void OnUpdate()
+
+    [BurstCompile]
+    struct SwarmDirectionJob : IJobForEachWithEntity<Translation, SwarmRotationData>
     {
-        Entities.WithAll<SpotTag>().ForEach((Entity entity, ref  Translation translation, ref SwarmRotationData swarmRotation) =>
+        public float3 goalPos;
+        [ReadOnly] public float time;
+        [ReadOnly] public float radius;
+        [ReadOnly] public float totalAmount;
+
+        public void Execute(Entity entity, int index, [ReadOnly] ref Translation translation, ref SwarmRotationData swarmRotationData)
         {
-            float3 currentPosition = translation.Value;
+            float3 spherePosition = float3.zero;
 
-            float3 direction = goalPos - currentPosition;
-            float3 avoidDirection = float3.zero;
-           
-            float distance = 0.0f; 
+            float longitude = 2 * math.PI *((float)index/totalAmount)* time;
+            float latitude = math.acos(2 * ((float)index/totalAmount) - 1) * time;
 
-            Entities.WithAll<SpotTag>().ForEach((Entity otherEntity, ref Translation otherTranslation) =>
-            {
-                distance = math.distance(currentPosition, otherTranslation.Value);
-                if ( distance < 3.0f)
-                {                                       
-                   avoidDirection = avoidDirection + (currentPosition - otherTranslation.Value);                   
-                }
-            });
+            spherePosition.x = radius * math.sin(latitude) * math.cos(longitude ) + goalPos.x;
+            spherePosition.y = radius * math.cos(latitude) + goalPos.y;
+            spherePosition.z = radius * math.sin(latitude) * math.sin(longitude) + goalPos.z;
 
-            if (math.length(direction) < 5.0f)
-                direction = currentPosition - goalPos;
+            swarmRotationData.direction = spherePosition - translation.Value;
+        }
+    }
 
-            direction = direction + avoidDirection;
+    protected override JobHandle OnUpdate(JobHandle inputDeps)
+    {
 
-            swarmRotation.direction = math.normalize(direction);
+        SwarmDirectionJob job = new SwarmDirectionJob
+        {
+            time = Time.time,
+            goalPos = goalPos,
+            radius = radius,
+            totalAmount = totalAmount,
+        };
 
-
-        });
+        return job.Schedule(this, inputDeps);
     }
 }
