@@ -17,9 +17,8 @@ public class SwarmRotationSystem : JobComponentSystem
         public float dt;
 
         public void Execute(ref Rotation rot, [ReadOnly] ref SwarmRotationData rotData)
-        {           
-            //rot.Value = math.slerp(rot.Value, quaternion.LookRotation(rotData.direction, math.up()), math.radians(dt * rotData.rotSpeed));
-            rot.Value = quaternion.LookRotation(rotData.direction, math.up());
+        {
+            rot.Value = math.slerp(rot.Value, quaternion.LookRotation(rotData.direction, math.up()), math.radians(dt * rotData.rotSpeed)); 
         }
     }
 

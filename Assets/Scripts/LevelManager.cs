@@ -12,11 +12,13 @@ public class LevelManager : MonoBehaviour
     [Header("Spawn data")]
     [SerializeField] private GameObject spawnPrefab;
     [SerializeField] private int amount;
-    [SerializeField] private float rotationSpeed = 30.0f;
     [Space]
     [Header("Play data")]
     [SerializeField] private GameObject goal;
-    [SerializeField] private float radius;
+    [SerializeField] private float rotationSpeed = 30.0f;
+
+
+    private int index = 0;
     
 
     // Start is called before the first frame update
@@ -31,26 +33,24 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            float xVal = UnityEngine.Random.Range(-10.0f, 10.0f);
-            float zVal = UnityEngine.Random.Range(-10.0f, 10.0f);
-            float yVal = UnityEngine.Random.Range(-10.0f, 10.0f);
+            float xVal = UnityEngine.Random.Range(-50.0f, 50.0f);
+            float zVal = UnityEngine.Random.Range(-50.0f, 50.0f);
+            float yVal = UnityEngine.Random.Range(-50.0f, 50.0f);
             eManager.SetComponentData(objects[i], new Translation { Value = new float3(xVal, yVal, zVal) });
             eManager.SetComponentData(objects[i], new Rotation { Value = quaternion.identity });
             eManager.AddComponentData(objects[i], new SwarmRotationData { rotSpeed = rotationSpeed, direction = new float3(0.0f, 0.0f, 1.0f) });
             eManager.AddComponentData(objects[i], new SpotTag { });
         }
-        objects.Dispose();
-        World.Active.GetExistingSystem<SwarmDirectionSystem>().totalAmount = (float)amount;
+        objects.Dispose();    
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            World.Active.GetExistingSystem<MoveForwardSystem>().bShouldStop = !World.Active.GetExistingSystem<MoveForwardSystem>().bShouldStop;
-
-        Vector3 position = goal.transform.position;
-        World.Active.GetExistingSystem<SwarmDirectionSystem>().goalPos = new float3(position.x, position.y, position.z);
-        World.Active.GetExistingSystem<SwarmDirectionSystem>().radius = radius;
+            World.Active.GetExistingSystem<MoveForwardSystem>().bShouldStop = !World.Active.GetExistingSystem<MoveForwardSystem>().bShouldStop;        
+       
+        World.Active.GetExistingSystem<SwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
     }
+    
 
 }
