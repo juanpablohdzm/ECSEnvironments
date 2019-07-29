@@ -7,9 +7,10 @@ using Unity.Mathematics;
 using Unity.Jobs;
 
 [UpdateAfter(typeof(SwarmRotationSystem))]
-public class MoveForwardSystem : JobComponentSystem
+public class SwarmMoveForwardSystem : JobComponentSystem
 {
     public bool bShouldStop = false;
+    public float speed;
 
     [BurstCompile]
     [RequireComponentTag(typeof(SpotTag))]
@@ -33,7 +34,7 @@ public class MoveForwardSystem : JobComponentSystem
         MoveForwardJob job = new MoveForwardJob
         {
             dt = Time.deltaTime,
-            speed = 5.0f
+            speed = speed,
         };
 
         return job.Schedule(this, inputDeps);

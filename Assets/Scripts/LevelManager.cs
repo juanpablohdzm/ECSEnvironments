@@ -5,9 +5,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
-using System.Threading.Tasks;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs 
 {
     [Header("Spawn data")]
     [SerializeField] private GameObject spawnPrefab;
@@ -16,10 +15,13 @@ public class LevelManager : MonoBehaviour
     [Header("Play data")]
     [SerializeField] private GameObject goal;
     [SerializeField] private float rotationSpeed = 30.0f;
+    [SerializeField] private float moveSpeed = 5.0f;
 
+    public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)
+    {
+        referencedPrefabs.Add(spawnPrefab);
+    }
 
-    private int index = 0;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +49,9 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            World.Active.GetExistingSystem<MoveForwardSystem>().bShouldStop = !World.Active.GetExistingSystem<MoveForwardSystem>().bShouldStop;        
-       
+            World.Active.GetExistingSystem<SwarmMoveForwardSystem>().bShouldStop = !World.Active.GetExistingSystem<SwarmMoveForwardSystem>().bShouldStop;
+
+        World.Active.GetExistingSystem<SwarmMoveForwardSystem>().speed = moveSpeed;
         World.Active.GetExistingSystem<SwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
     }
     

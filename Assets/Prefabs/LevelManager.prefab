@@ -43,6 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81069a90a58ff854ebee7fac66b8a852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPrefab: {fileID: 2366145156498788911, guid: 45f707d48d2361e4cb991581effdae81,
+  spawnPrefab: {fileID: 6392808546487506270, guid: 3a449de3960cc294eb62f2b246c3a913,
     type: 3}
-  amount: 100
+  amount: 10000
+  goal: {fileID: 0}
+  rotationSpeed: 15
+  moveSpeed: 8
