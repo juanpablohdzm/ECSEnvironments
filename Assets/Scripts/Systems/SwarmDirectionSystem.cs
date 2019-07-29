@@ -1,4 +1,4 @@
-﻿
+﻿using System.Linq;
 using Unity.Entities;
 using Unity.Burst;
 using Unity.Collections;
@@ -23,29 +23,20 @@ public class SwarmDirectionSystem : JobComponentSystem
             float3 currentPosition = translation.Value;
             float3 direction = float3.zero;
             float3 otherPosition = float3.zero;
-            float3 avoidDirection = float3.zero;
-
-            bool isAvoiding = false;
-
-            for (int i = 0; i < translations.Length; i++)
-            {
-                otherPosition = translations[i].Value;
-                if (math.length(otherPosition-currentPosition) < 3.0f)
-                {
-                    isAvoiding = true;
-                    avoidDirection = avoidDirection + (currentPosition - otherPosition);
-                }
-            }
 
             if (math.length(goalPos - currentPosition) < 2.0f)
                 direction = currentPosition - goalPos;
             else
                 direction = goalPos - currentPosition;
 
-            if(isAvoiding)
+            for (int i = 0; i < translations.Length; i++)
             {
-                direction = direction + avoidDirection;
-            }
+                otherPosition = translations[i].Value;
+                if (math.length(otherPosition-currentPosition) < 3.0f)
+                {
+                    direction = direction + (currentPosition - otherPosition);
+                }
+            }                                          
             
             swarmRotationData.direction = math.normalize(direction);
         }
