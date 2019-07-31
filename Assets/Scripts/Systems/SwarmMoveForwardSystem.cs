@@ -9,7 +9,6 @@ using Unity.Jobs;
 [UpdateAfter(typeof(SwarmRotationSystem))]
 public class SwarmMoveForwardSystem : JobComponentSystem
 {
-    public bool bShouldStop = false;
     public float speed;
 
     [BurstCompile]
@@ -29,7 +28,6 @@ public class SwarmMoveForwardSystem : JobComponentSystem
 
     protected override JobHandle OnUpdate(JobHandle inputDeps)
     {
-        if (bShouldStop) return inputDeps;
 
         MoveForwardJob job = new MoveForwardJob
         {
