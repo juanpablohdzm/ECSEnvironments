@@ -20,7 +20,7 @@ public class FrameDisplay : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {      
         frameCount++;
         dt += Time.deltaTime;
         if (dt > 1.0 / updateRate)
