@@ -9,8 +9,9 @@ using Unity.Mathematics;
 public class UnderwaterEnvironmentManager : LevelManager
 {    
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         World.Active.GetExistingSystem<SwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
     }  
 }

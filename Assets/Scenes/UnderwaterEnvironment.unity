@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefab: {fileID: 6392808546487506270, guid: 3a449de3960cc294eb62f2b246c3a913,
     type: 3}
-  amount: 350
+  amount: 300
   goal: {fileID: 0}
   rotationSpeed: 15
   moveSpeed: 8
