@@ -6,7 +6,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 
-public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs 
+public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
 {
     [Header("Spawn data")]
     [SerializeField] protected GameObject spawnPrefab;
@@ -28,9 +28,7 @@ public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
 
     protected virtual void SpawnEntities(int amount)
     {
-        Debug.LogError("ECS: spawning entities");
-        GameObjectConversionSettings settings = new GameObjectConversionSettings(World.Active, GameObjectConversionUtility.ConversionFlags.AddEntityGUID);
-        Entity prefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(spawnPrefab, settings );
+        Entity prefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(spawnPrefab, World.Active);
 
         EntityManager eManager = World.Active.EntityManager;
         NativeArray<Entity> objects = new NativeArray<Entity>(amount, Allocator.Temp);
@@ -63,9 +61,4 @@ public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
             SpawnEntities(amount);           
         }
     }
-
-
-
-
-
 }
