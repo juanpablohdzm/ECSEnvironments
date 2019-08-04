@@ -58,7 +58,7 @@ public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
 
     protected virtual void Update()
     {
-        if(OVRInput.Get(OVRInput.Button.PrimaryHandTrigger) || Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {                    
             SpawnEntities(amount);           
         }

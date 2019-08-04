@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRig : MonoBehaviour,IAnchorDependent
+public class PlayerRig : MonoBehaviour
 {
     [SerializeField] private GameObject controller; 
 
