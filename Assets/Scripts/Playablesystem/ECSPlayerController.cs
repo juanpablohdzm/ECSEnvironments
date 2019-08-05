@@ -13,6 +13,7 @@ public class ECSPlayerController : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         OVRPlugin.Handedness handedness = OVRPlugin.GetDominantHand();
         Instantiate(controller, universalAnchor.transform);
         switch (handedness)

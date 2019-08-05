@@ -36,10 +36,10 @@ public class ECSLevelManager : MonoBehaviour, IDeclareReferencedPrefabs
 
         for (int i = 0; i < amount; i++)
         {
-            float randomSpeed = UnityEngine.Random.Range(rotationSpeed - 10.0f, rotationSpeed + 10.0f);
+            float randomSpeed = UnityEngine.Random.Range(rotationSpeed - 5.0f, rotationSpeed + 10.0f);
             float xVal = UnityEngine.Random.Range(-50.0f, 50.0f);
             float zVal = UnityEngine.Random.Range(-50.0f, 50.0f);
-            float yVal = UnityEngine.Random.Range(-50.0f, 50.0f);
+            float yVal = UnityEngine.Random.Range(10.0f, 50.0f);
             eManager.SetComponentData(objects[i], new Translation { Value = new float3(xVal, yVal, zVal) });
             eManager.SetComponentData(objects[i], new Rotation { Value = quaternion.identity });
             eManager.AddComponentData(objects[i], new ECSSwarmRotationData { rotSpeed = randomSpeed, direction = new float3(0.0f, 0.0f, 1.0f) });

@@ -288,8 +288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   universalAnchor: {fileID: 633424368465369613}
-  leftAnchor: {fileID: 7433050574544804616}
-  rightAnchor: {fileID: 7433050574544801180}
+  leftAnchor: {fileID: 7431093108631539340}
+  rightAnchor: {fileID: 7432134176936249946}
   controller: {fileID: 6827449358165598297, guid: 08e9d339e22f3194097f97f313f9cb6c,
     type: 3}
 --- !u!1 &7433050574544811858

@@ -36,8 +36,11 @@ public class ECSSwarmDirectionSystem : JobComponentSystem
                 {
                     direction = direction + (currentPosition - otherPosition);
                 }
-            }                                          
-            
+            }
+
+            float3 floorPosition = new float3(currentPosition.x,-1.5f,currentPosition.z);
+            if (math.length(currentPosition - floorPosition) < 5.0f)
+                direction = direction + (currentPosition - floorPosition);
             swarmRotationData.direction = math.normalize(direction);
         }
     }
