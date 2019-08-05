@@ -7,16 +7,16 @@ using Unity.Mathematics;
 using Unity.Burst;
 
 
-public class SwarmRotationSystem : JobComponentSystem
+public class ECSSwarmRotationSystem : JobComponentSystem
 {
     
 
     [BurstCompile]
-    struct SwarmRotationJob : IJobForEach<Rotation, SwarmRotationData>
+    struct SwarmRotationJob : IJobForEach<Rotation, ECSSwarmRotationData>
     {
         public float dt;
 
-        public void Execute(ref Rotation rot, [ReadOnly] ref SwarmRotationData rotData)
+        public void Execute(ref Rotation rot, [ReadOnly] ref ECSSwarmRotationData rotData)
         {
             rot.Value = math.slerp(rot.Value, quaternion.LookRotation(rotData.direction, math.up()), math.radians(dt * rotData.rotSpeed)); 
         }

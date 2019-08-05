@@ -7,18 +7,18 @@ using Unity.Mathematics;
 using Unity.Jobs;
 
 
-[UpdateBefore(typeof(SwarmRotationSystem))]
-public class SwarmDirectionSystem : JobComponentSystem
+[UpdateBefore(typeof(ECSSwarmRotationSystem))]
+public class ECSSwarmDirectionSystem : JobComponentSystem
 {
     [ReadOnly] public float3 goalPos;
 
     [BurstCompile]
-    struct SwarmDirectionJob : IJobForEachWithEntity<Translation, SwarmRotationData>
+    struct SwarmDirectionJob : IJobForEachWithEntity<Translation, ECSSwarmRotationData>
     {
         public float3 goalPos;
         [DeallocateOnJobCompletion][ReadOnly] public NativeArray<Translation> translations;
 
-        public void Execute(Entity entity, int index, [ReadOnly] ref Translation translation, ref SwarmRotationData swarmRotationData)
+        public void Execute(Entity entity, int index, [ReadOnly] ref Translation translation, ref ECSSwarmRotationData swarmRotationData)
         {
             float3 currentPosition = translation.Value;
             float3 direction = float3.zero;

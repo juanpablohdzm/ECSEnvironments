@@ -6,8 +6,8 @@ using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Jobs;
 
-[UpdateAfter(typeof(SwarmRotationSystem))]
-public class SwarmMoveForwardSystem : JobComponentSystem
+[UpdateAfter(typeof(ECSSwarmRotationSystem))]
+public class ECSSwarmMoveForwardSystem : JobComponentSystem
 {
     public float speed;
 

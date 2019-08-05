@@ -5,7 +5,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 [SerializeField]
-public struct SwarmRotationData : IComponentData
+public struct ECSSwarmRotationData : IComponentData
 {
     public float rotSpeed;
     public float3 direction;

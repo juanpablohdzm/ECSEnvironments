@@ -6,7 +6,7 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 
-public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
+public class ECSLevelManager : MonoBehaviour, IDeclareReferencedPrefabs
 {
     [Header("Spawn data")]
     [SerializeField] protected GameObject spawnPrefab;
@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
             float yVal = UnityEngine.Random.Range(-50.0f, 50.0f);
             eManager.SetComponentData(objects[i], new Translation { Value = new float3(xVal, yVal, zVal) });
             eManager.SetComponentData(objects[i], new Rotation { Value = quaternion.identity });
-            eManager.AddComponentData(objects[i], new SwarmRotationData { rotSpeed = randomSpeed, direction = new float3(0.0f, 0.0f, 1.0f) });
+            eManager.AddComponentData(objects[i], new ECSSwarmRotationData { rotSpeed = randomSpeed, direction = new float3(0.0f, 0.0f, 1.0f) });
             eManager.AddComponentData(objects[i], new SpotTag { });
         }
         objects.Dispose();
@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour, IDeclareReferencedPrefabs
     private void Awake()
     {                  
         SpawnEntities(amount);      
-        World.Active.GetExistingSystem<SwarmMoveForwardSystem>().speed = moveSpeed;      
+        World.Active.GetExistingSystem<ECSSwarmMoveForwardSystem>().speed = moveSpeed;      
     }
 
     protected virtual void Update()

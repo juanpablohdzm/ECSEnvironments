@@ -6,11 +6,11 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 
-public class FildEnvironmentManager : LevelManager
+public class ECSFildEnvironmentManager : ECSLevelManager
 {    
     // Update is called once per frame
     void Update()
     {
-        World.Active.GetExistingSystem<SwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
+        World.Active.GetExistingSystem<ECSSwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
     }  
 }
