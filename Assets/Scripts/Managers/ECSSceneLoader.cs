@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +21,8 @@ public class ECSSceneLoader : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void LoadScene(string name)
+    [Button]
+    public void LoadScene(string name = "underwater")
     {
         StartCoroutine(LoadSceneAsync(infoHolder.GetInfo(name).environmentScene));
     }
