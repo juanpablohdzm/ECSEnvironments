@@ -4,38 +4,42 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ECSEnvironments.ScriptableObjects;
 
-public class ECSSceneLoader : MonoBehaviour
+namespace ECSEnvironments.Managers
 {
-    private static ECSSceneLoader instance;
-    [SerializeField] private ECSEnvironmentInfoHolderSO infoHolder;
-    public ECSSceneLoader Instance { get { return instance; } }
-    public event Action OnSceneLoaded;
-
-    private void Start()
+    public class ECSSceneLoader : MonoBehaviour
     {
-        if (instance == null)
-            instance = this;
-        else
-            if (instance != this)
-            Destroy(gameObject);
-    }
+        private static ECSSceneLoader instance;
+        [SerializeField] private ECSEnvironmentInfoHolderSO infoHolder;
+        public ECSSceneLoader Instance { get { return instance; } }
+        public event Action OnSceneLoaded;
 
-    [Button]
-    public void LoadScene(string name = "underwater")
-    {
-        StartCoroutine(LoadSceneAsync(infoHolder.GetInfo(name).environmentScene));
-    }
-
-    private IEnumerator LoadSceneAsync(SceneField scene)
-    {
-        AsyncOperation  async = SceneManager.LoadSceneAsync(scene,LoadSceneMode.Additive);
-        while (async.progress<.9f)
+        private void Start()
         {
-            yield return null;
+            if (instance == null)
+                instance = this;
+            else
+                if (instance != this)
+                Destroy(gameObject);
         }
 
-        async.allowSceneActivation = true;
-        OnSceneLoaded?.Invoke();
+        [Button]
+        public void LoadScene(string name = "underwater")
+        {
+            StartCoroutine(LoadSceneAsync(infoHolder.GetInfo(name).environmentScene));
+        }
+
+        private IEnumerator LoadSceneAsync(SceneField scene)
+        {
+            AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+            while (async.progress < .9f)
+            {
+                yield return null;
+            }
+
+            async.allowSceneActivation = true;
+            OnSceneLoaded?.Invoke();
+        }
     }
 }

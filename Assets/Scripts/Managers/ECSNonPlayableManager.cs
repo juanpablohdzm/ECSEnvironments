@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ECSNonPlayableManager : MonoBehaviour
+namespace ECSEnvironments.Managers
 {
-    // Start is called before the first frame update
-    void Awake()
+    public class ECSNonPlayableManager : MonoBehaviour
     {
-        DontDestroyOnLoad(this.gameObject);
-    } 
+        // Start is called before the first frame update
+        void Awake()
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 }

@@ -6,12 +6,14 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 
-public class ECSUnderwaterEnvironmentManager : ECSLevelManager
-{    
-    // Update is called once per frame
-    protected override void Update()
+namespace ECSEnvironments.Managers
+{
+    public class ECSUnderwaterEnvironmentManager : ECSLevelManager
     {
-        base.Update();
-        World.Active.GetExistingSystem<ECSSwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
-    }  
+        // Update is called once per frame
+        protected void Update()
+        {
+            World.Active.GetExistingSystem<ECSSwarmDirectionSystem>().goalPos = new float3(goal.transform.position.x, goal.transform.position.y, goal.transform.position.z);
+        }
+    }
 }
