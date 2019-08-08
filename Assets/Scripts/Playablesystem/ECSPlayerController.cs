@@ -15,6 +15,7 @@ namespace ECSEnvironments.PlayableSystems
 
         private void Awake()
         {
+
             DontDestroyOnLoad(gameObject);
             OVRPlugin.Handedness handedness = OVRPlugin.GetDominantHand();
             Instantiate(controller, universalAnchor.transform);

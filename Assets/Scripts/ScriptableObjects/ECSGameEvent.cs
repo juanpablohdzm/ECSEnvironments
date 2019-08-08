@@ -5,7 +5,7 @@ using ECSEnvironments.PlayableSystems;
 
 namespace ECSEnvironments.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "ECSGameEvent_", menuName = "Environments/GameEvent")]
+    [CreateAssetMenu(fileName = "ECSGameEvent_", menuName = "Environment/GameEvent")]
     public class ECSGameEvent : ScriptableObject
     {
         private List<ECSGameEventListener> listeners = new List<ECSGameEventListener>();
