@@ -13,7 +13,7 @@ namespace ECSEnvironments.Managers
         private static ECSSceneLoader instance;
         [SerializeField] private ECSEnvironmentInfoHolderSO infoHolder;
         public ECSSceneLoader Instance { get { return instance; } }
-        public event Action OnSceneLoaded;
+        [SerializeField] private ECSGameEvent OnSceneLoaded;
 
         private void Start()
         {
@@ -39,7 +39,7 @@ namespace ECSEnvironments.Managers
             }
 
             async.allowSceneActivation = true;
-            OnSceneLoaded?.Invoke();
+            OnSceneLoaded.Raise();
         }
     }
 }

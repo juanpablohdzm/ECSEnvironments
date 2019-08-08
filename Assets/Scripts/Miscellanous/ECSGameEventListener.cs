@@ -6,7 +6,7 @@ using ECSEnvironments.ScriptableObjects;
 
 namespace ECSEnvironments.PlayableSystems
 {
-    public class ECSGameEventListener : ScriptableObject
+    public class ECSGameEventListener : MonoBehaviour
     {
         [SerializeField]
         private ECSGameEvent gameEvent;
