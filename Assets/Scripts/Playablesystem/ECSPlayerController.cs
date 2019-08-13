@@ -33,5 +33,10 @@ namespace ECSEnvironments.PlayableSystems
                     throw new System.NotImplementedException();
             }
         }
+
+        private void Update()
+        {
+            //TODO Implement ECSInterface behavior with raycast
+        }
     }
 }
