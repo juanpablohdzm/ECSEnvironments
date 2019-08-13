@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ECSEnvironments.PlayableSystems;
+using Sirenix.OdinInspector;
 
 namespace ECSEnvironments.ScriptableObjects
 {
@@ -10,9 +11,10 @@ namespace ECSEnvironments.ScriptableObjects
     {
         private List<ECSGameEventListener> listeners = new List<ECSGameEventListener>();
 
+        [Button]
         public void Raise()
         {
-            for (int i = listeners.Count - 1; i >= 0; i--)
+            for (int i = 0; i < listeners.Count; i++)
             {
                 listeners[i].OnEventRaised();
             }

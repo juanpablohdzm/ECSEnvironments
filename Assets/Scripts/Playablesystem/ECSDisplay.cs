@@ -20,18 +20,21 @@ namespace ECSEnvironments.PlayableSystems
         {
             bWantsToGlow = true;
             textMeshPro.text = displayName;
+            Debug.LogError("On Ray Enter");
         }
 
         public void OnRayExit()
         {
             bWantsToGlow = false;
             textMeshPro.text = "Select Environment";
+            Debug.LogError("On Ray Exit");
         }
 
         public void OnRayTrigger()
         {
             textMeshPro.text = "Select Environment";
             material.SetFloat("_EmissiveIntensity", 1.0f);
+            Debug.LogError("On Ray Trigger");
             ECSSceneLoader.Instance.LoadScene(displayName.ToLower());
         }
 

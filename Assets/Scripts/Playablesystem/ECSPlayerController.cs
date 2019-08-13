@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ECSEnvironments.Interfaces;
 
 namespace ECSEnvironments.PlayableSystems
 {
@@ -12,6 +13,10 @@ namespace ECSEnvironments.PlayableSystems
         [SerializeField] private GameObject rightAnchor;
 
         [SerializeField] private GameObject controller;
+        [Header("Interaction")]
+        [SerializeField] private LayerMask rayMask;
+
+        private ECSIRayInteractable lastHit;
 
         private void Awake()
         {
@@ -36,7 +41,32 @@ namespace ECSEnvironments.PlayableSystems
 
         private void Update()
         {
-            //TODO Implement ECSInterface behavior with raycast
+            if(Time.frameCount % 3 == 0)
+            {
+                RaycastHit raycastHit;
+                if(Physics.Raycast(universalAnchor.transform.position,universalAnchor.transform.forward,out raycastHit,20.0f,rayMask))
+                {
+                    ECSIRayInteractable hit = raycastHit.transform.GetComponent<ECSIRayInteractable>();
+                    if(lastHit != hit)
+                    {
+                        if (lastHit != null)
+                            lastHit.OnRayExit();
+
+                        lastHit = hit;
+                        lastHit.OnRayEnter();
+                    }
+
+                    if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+                        lastHit.OnRayTrigger();
+
+                }
+                else
+                {
+                    if (lastHit != null)
+                        lastHit.OnRayExit();
+                    lastHit = null;
+                }
+            }
         }
     }
 }
