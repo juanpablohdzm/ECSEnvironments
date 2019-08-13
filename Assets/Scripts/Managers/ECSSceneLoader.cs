@@ -10,10 +10,15 @@ namespace ECSEnvironments.Managers
 {
     public class ECSSceneLoader : MonoBehaviour
     {
+        public static ECSSceneLoader Instance { get { return instance; } }
         private static ECSSceneLoader instance;
+
         [SerializeField] private ECSEnvironmentInfoHolderSO infoHolder;
-        public ECSSceneLoader Instance { get { return instance; } }
+
         [SerializeField] private ECSGameEvent OnSceneLoaded;
+        [SerializeField] private ECSGameEvent OnSceneUnloaded;
+
+        public ECSEnvironmentInfoSO currentInfo { get; private set; }
 
         private void Start()
         {
@@ -25,13 +30,23 @@ namespace ECSEnvironments.Managers
         }
 
         [Button]
-        public void LoadScene(string name = "underwater")
+        public void LoadScene(string name = "underwater", bool loadScene = true)
         {
-            StartCoroutine(LoadSceneAsync(infoHolder.GetInfo(name).environmentScene));
+            if (loadScene)
+            {
+                currentInfo = infoHolder.GetInfo(name);
+                StartCoroutine(LoadSceneAsync(currentInfo.environmentScene));
+            }
+            else
+            {
+                StartCoroutine("UnloadSceneAsync");
+            }
+
         }
 
         private IEnumerator LoadSceneAsync(SceneField scene)
         {
+
             AsyncOperation async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             while (async.progress < .9f)
             {
@@ -40,6 +55,17 @@ namespace ECSEnvironments.Managers
 
             async.allowSceneActivation = true;
             OnSceneLoaded.Raise();
+        }
+
+        private IEnumerator UnloadSceneAsync()
+        {
+            AsyncOperation async = SceneManager.UnloadSceneAsync(currentInfo.environmentScene);
+            while (async.progress < .9f)
+            {
+                yield return null;
+            }
+
+            OnSceneUnloaded.Raise();
         }
 
         public void QuitGame()
