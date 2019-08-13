@@ -26,13 +26,19 @@ public class ECSGoalBehavior : MonoBehaviour
 
     private void ChangeDistance()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0 + distance.value * distanceMax);
+
+        Vector3 forward = transform.forward * distance.value * distanceMax;
+        forward.y = transform.localPosition.y;
+        transform.localPosition = forward;
+
     }
 
     private void ChangeHeight()
     {
-        transform.position = new Vector3(transform.position.x, 0 + height.value * heightMax, transform.position.z);
+        transform.localPosition = new Vector3(transform.localPosition.x, 0 + height.value * heightMax, transform.localPosition.z);
     }
+
+   
 
     private void ChangeRotation()
     {
@@ -43,5 +49,25 @@ public class ECSGoalBehavior : MonoBehaviour
         forward.y = transform.position.y;
 
         transform.position = forward;
+        transform.rotation = Quaternion.AngleAxis(rotation.value, Vector3.up);
+    }
+
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            rotation.value += 5.0f;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            height.value += 0.1f;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            distance.value += 0.1f;
+        }
+
+#endif
     }
 }

@@ -30,18 +30,15 @@ namespace ECSEnvironments.Managers
         }
 
         [Button]
-        public void LoadScene(string name = "underwater", bool loadScene = true)
-        {
-            if (loadScene)
-            {
-                currentInfo = infoHolder.GetInfo(name);
-                StartCoroutine(LoadSceneAsync(currentInfo.environmentScene));
-            }
-            else
-            {
-                StartCoroutine("UnloadSceneAsync");
-            }
+        public void LoadScene(string name = "underwater")
+        {           
+            currentInfo = infoHolder.GetInfo(name);
+            StartCoroutine(LoadSceneAsync(currentInfo.environmentScene));                                             
+        }
 
+        public void UnloadScene()
+        {
+            StartCoroutine("UnloadSceneAsync");
         }
 
         private IEnumerator LoadSceneAsync(SceneField scene)
