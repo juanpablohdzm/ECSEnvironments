@@ -11,6 +11,6 @@ namespace ECSEnvironments.ScriptableObjects
     {
         [OdinSerialize] public SceneField environmentScene;
         [OdinSerialize] public Color cameraBackgroundColor;
-        [OdinSerialize] public AudioClip environmentSound;
+        [OdinSerialize] public AudioClip[] environmentSound;
     }
 }

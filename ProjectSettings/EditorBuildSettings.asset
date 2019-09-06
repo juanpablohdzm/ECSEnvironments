@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UnderwaterEnvironment.unity
     guid: 3fe7a552a406ffc4f8194a0e14dc8109
+  - enabled: 1
+    path: Assets/Scenes/FieldEnvironment.unity
+    guid: 7130429a705004c41a7f88b98b8bd5fb
   m_configObjects: {}

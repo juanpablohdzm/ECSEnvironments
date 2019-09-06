@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c74b88a2ee4751469025cd471f2599d, type: 3}
-  m_Name: Environment_Underwater
+  m_Name: Environment_Field
   m_EditorClassIdentifier: 
   environmentScene:
-    sceneAsset: {fileID: 102900000, guid: 3fe7a552a406ffc4f8194a0e14dc8109, type: 3}
-    sceneName: UnderwaterEnvironment
-  cameraBackgroundColor: {r: 0.2205882, g: 0.70973605, b: 1, a: 1}
+    sceneAsset: {fileID: 102900000, guid: 7130429a705004c41a7f88b98b8bd5fb, type: 3}
+    sceneName: FieldEnvironment
+  cameraBackgroundColor: {r: 0, g: 1, b: 0.03731489, a: 1}
   environmentSound:
   - {fileID: 8300000, guid: 13993a8c2fdf01a4aa9b5cd44d7e0f0a, type: 3}
   - {fileID: 8300000, guid: 4c10a2aab0dcba946978bfe6939e4ab2, type: 3}

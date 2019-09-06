@@ -8,6 +8,7 @@ namespace ECSEnvironments.UI
 {
     public class ECSBackUI : MonoBehaviour
     {
+        [SerializeField] private Slider[] sliders;
         // Start is called before the first frame update
         void Awake()
         {
@@ -16,6 +17,11 @@ namespace ECSEnvironments.UI
 
         private void OnClick()
         {
+            foreach (Slider slider in sliders)
+            {
+                slider.value = slider.minValue;
+            }
+            ECSLevelManager.DestroyAllEntities();
             ECSSceneLoader.Instance.UnloadScene();
         }
     }

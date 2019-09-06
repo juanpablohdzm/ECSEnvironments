@@ -19,6 +19,9 @@ namespace ECSEnvironments.Managers
         [SerializeField] protected float rotationSpeed = 30.0f;
         [SerializeField] protected float moveSpeed = 5.0f;
 
+        private static NativeArray<Entity> entities;
+        private static int currentIndex = 0;
+
 
         public GameObject Goal { get { return goal; } set { goal = value; } }
 
@@ -38,6 +41,8 @@ namespace ECSEnvironments.Managers
 
             for (int i = 0; i < amount; i++)
             {
+                entities[currentIndex++] = objects[i];
+
                 float randomSpeed = UnityEngine.Random.Range(rotationSpeed - 5.0f, rotationSpeed + 10.0f);
                 float xVal = UnityEngine.Random.Range(-50.0f, 50.0f);
                 float zVal = UnityEngine.Random.Range(-50.0f, 50.0f);
@@ -52,6 +57,7 @@ namespace ECSEnvironments.Managers
 
         private void Awake()
         {
+            entities = new NativeArray<Entity>(amount,Allocator.Persistent);
             StartCoroutine("SpawnEntitiesCoroutine");
             World.Active.GetExistingSystem<ECSSwarmMoveForwardSystem>().speed = moveSpeed;
         }
@@ -67,6 +73,14 @@ namespace ECSEnvironments.Managers
                 yield return seconds;
             }
 
+        }
+
+        public static void DestroyAllEntities()
+        {
+
+            World.Active.EntityManager.DestroyEntity(entities);
+            entities.Dispose();
+            currentIndex = 0;
         }
 
     }
