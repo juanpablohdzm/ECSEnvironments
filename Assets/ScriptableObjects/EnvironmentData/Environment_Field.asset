@@ -17,6 +17,4 @@ MonoBehaviour:
     sceneName: FieldEnvironment
   cameraBackgroundColor: {r: 0, g: 1, b: 0.03731489, a: 1}
   environmentSound:
-  - {fileID: 8300000, guid: 13993a8c2fdf01a4aa9b5cd44d7e0f0a, type: 3}
-  - {fileID: 8300000, guid: 4c10a2aab0dcba946978bfe6939e4ab2, type: 3}
-  - {fileID: 8300000, guid: 6a33f5e0f379487469ce6680af147f44, type: 3}
+  - {fileID: 8300000, guid: 9c5e138cd66156547b03d29d36e69ed1, type: 3}
